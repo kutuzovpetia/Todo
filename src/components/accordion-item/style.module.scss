@@ -1,0 +1,23 @@
+.priorityBlue{
+    border-left: 5px solid rgb(0, 98, 255);
+}
+
+.priorityOrange{
+    border-left: 5px solid rgb(255, 145, 0);
+}
+
+.priorityRed{
+    border-left: 5px solid rgb(246, 0, 0);
+}
+
+.dropDown{
+    button{
+        width: 100%;
+    }
+}
+
+.btnDelete{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}

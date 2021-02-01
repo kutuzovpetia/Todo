@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import s from './App.module.scss';
+import HeaderNavMenu from './components/header-nav-menu'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Content from './components/content';
+import {connect} from 'react-redux';
 
-function App() {
+function App(props) {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={s.App}>
+      <HeaderNavMenu/>
+      <Content></Content>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    showCreateList: state.showCreateList
+  };
+};
+
+export default connect(mapStateToProps)(App);

@@ -1,0 +1,45 @@
+.wrapper{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: #242424;
+    padding: 10px 15px;
+    
+    @media (width: 715px) {
+        height: 150px;
+    }
+
+    @media (max-width: 537px) {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        height: 150px;
+    }
+
+
+    .rightControls{
+        display: flex;
+        justify-content: space-between;
+        min-width: 180px;
+        @media (max-width: 714px) {
+            width: 100%;
+            margin-top: 5px;
+        }
+    }
+
+    .centerControls{
+        display: flex;
+        justify-content: space-between;
+        width: 360px;
+
+        
+
+        @media (max-width: 537px) {
+            width: 100%;
+        }
+
+    }
+}
+
+
+
+
