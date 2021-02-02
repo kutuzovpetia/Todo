@@ -5,7 +5,7 @@ import * as actions from "../../action";
 import CardBoot from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 
-// console.log(props.data.find(item => item.id === props.id))
+
 const Card = (props) => {
   
   return (
@@ -25,7 +25,12 @@ const Card = (props) => {
         <ListGroup >
         {
           props.list.slice(0, 5).map((item)=>{
-            return <ListGroup.Item  key={item.id} variant="info">{item.title}</ListGroup.Item>
+            return <ListGroup.Item  key={item.id} variant="info">
+              <div className='d-flex justify-content-between m-0'>
+                <p>{item.title}</p>
+                <p>{item.date}</p>
+              </div>
+            </ListGroup.Item>
           })
         }
         

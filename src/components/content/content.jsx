@@ -10,8 +10,12 @@ import TodoList from '../todoList';
 
 const Content = (props) => {
 
-    const [obj, setObj] = useState(null);
-    // console.log(obj);
+    const [obj, setObj] = useState(null); // полученый обьект
+    
+    const deleteItem = (id) =>{ // Удаляет елемент из списка
+        obj.list = obj.list.filter(item => item.id !== id);
+    }
+
     const elements = props.data.map((item)=>{
         if(!props.display){ return <Card  setObj={setObj}  key={item.id} id={item.id} title={item.title} list={item.list}></Card> }
         else{ return <ItemList key={item.id} id={item.id} title={item.title}></ItemList> }
@@ -21,7 +25,7 @@ const Content = (props) => {
         <div className={props.display ? s.contentWrapperList : s.contentWrapperBlock}>
             { elements }
             { props.showCreateList ? <CreateModule/> : null}
-            { props.onList ? <TodoList obj={obj}/> : null }
+            { props.onList ? <TodoList obj={obj} getDeleteId={deleteItem}/> : null }
         </div>
     )
 }

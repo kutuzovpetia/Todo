@@ -16,7 +16,7 @@ const HeaderNavMenu = (props) => {
       >Создать список</button>
 
       <div className={s.centerControls}>
-        <button className={"btn btn-secondary"}>{`Списки ${0}`}</button>
+        <button className={"btn btn-secondary"}>{`Списки ${props.data.length}`}</button>
         <button className={"btn btn-secondary"}>{`Запланировано ${0}`}</button>
         <button className={"btn btn-secondary"}>{`Сегодня ${0}`}</button>
       </div>
@@ -41,7 +41,7 @@ const HeaderNavMenu = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    display: state.display
+    data: state.data
   };
 };
 
