@@ -1,51 +1,9 @@
 
+
+
 const initialState = {
 
-  data : [
-    {
-        id:1,
-        title: 'Задания на сегодня',
-        list : [
-            {id:1, title: 'Купить хлеба', note: 'Заметка', date: '2021-02-04', priority: 'Высокий'},
-            {id:2, title: 'Попить чаю', note: '', date: '', priority: 'Низкий'},
-            {id:3, title: 'Сходить в магазин', note: '', date: '', priority: 'Средний'},
-            {id:4, title: 'Покушать', note: 'Заметка', date: '2021-02-04', priority: 'Высокий'},
-            {id:5, title: 'Не волноватся', note: '', date: '', priority: 'Низкий'},
-        ]
-    },
-    {
-        id:2,
-        title: 'Просто планы',
-        list : [
-            {id:1, title: 'Купить хлеба', note: '', date: '', priority: ''},
-            {id:2, title: 'Попить чаю', note: '', date: '', priority: ''},
-            {id:3, title: 'Сходить в магазин', note: '', date: '', priority: ''},
-            {id:4, title: 'Покушать', note: '', date: '', priority: ''},
-            {id:5, title: 'lol', note: '', date: '', priority: ''},
-            {id:6, title: 'покушать надо опять', note: '', date: '', priority: ''},
-        ]
-    },
-    {
-        id:3,
-        title: 'Надо сделать',
-        list : [
-            {id:1, title: 'Купить хлеба', note: '', date: '', priority: ''},
-            {id:2, title: 'Попить чаю', note: '', date: '', priority: ''},
-            {id:3, title: 'Сходить в магазин', note: '', date: '', priority: ''},
-            {id:4, title: 'Покушать', note: '', date: '', priority: ''},
-        ]
-    },
-    {
-        id:4,
-        title: 'Очень важно',
-        list : [
-            {id:1, title: 'Купить хлеба', note: '', date: '', priority: ''},
-            {id:2, title: 'Попить чаю', note: '', date: '', priority: ''},
-            {id:3, title: 'Сходить в магазин', note: '', date: '', priority: ''},
-            {id:4, title: 'Покушать', note: '', date: '', priority: ''},
-        ]
-    },
-],
+  data : [],
   display: false,
   showCreateList: false,
   onList: false,
@@ -54,6 +12,8 @@ const initialState = {
 const reducer = (state = initialState, action) =>{
 
     switch (action.type) {
+        case 'SET_DATA':
+          return {...state, data : action.data}
         case 'DATA':
           return  state.data
         case 'DISPLAY_SELECTION':
@@ -67,10 +27,10 @@ const reducer = (state = initialState, action) =>{
         case 'ON_LIST':
           return {...state, onList: !state.onList}
         case 'ADD_ITEM_TO_LIST':
-          console.log(action.obj)
+          // console.log(action.obj)
           return {...state, data: state.data.map(item =>{
             if(item.id === action.id){
-              return { ...item, list : [...item.list, action.obj] }
+              return { ...item, lists : [...item.lists, action.obj] }
             }
             return item;
           })
@@ -79,7 +39,7 @@ const reducer = (state = initialState, action) =>{
         case 'DELETE_ITEM_FROM_LIST':
           return {...state, data : state.data.map((item)=>{
                 if(item.id === action.idCard){
-                  return {...item, list : item.list.filter(it => it.id !== action.id)}
+                  return {...item, lists : item.lists.filter(it => it.id !== action.id)}
                 }
                 return item;
           }) }

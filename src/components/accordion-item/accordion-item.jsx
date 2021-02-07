@@ -6,8 +6,16 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import * as actions from '../../action';
 import {connect} from 'react-redux';
+import ApiService from '../../service-api';
 
 const AccordionItem = (props) => {
+
+  const deleteTask  = (idCArd,idItem) => {
+    const api = new ApiService();
+    api.deleteTask(idCArd, idItem);// Удаляем с базы
+    props.deleteItemFromList(idItem, idCArd); // Удаляем из store
+  }
+
   const [date, setDate] = useState(props.date);
   const [priority, setPriority] = useState(props.priority || 'Нет');
   
@@ -54,7 +62,9 @@ const AccordionItem = (props) => {
               <Dropdown.Item as="button" onClick={()=>{setPriority('Средний'); props.addPriority(props.id, props.objCard.id, 'Средний')}}>Средний</Dropdown.Item>
               <Dropdown.Item as="button" onClick={()=>{setPriority('Высокий'); props.addPriority(props.id, props.objCard.id, 'Высокий')}}>Высокий</Dropdown.Item>
             </DropdownButton>
-            <button className={`${s.btnDelete} btn btn-danger`} onClick={()=>{props.deleteItemFromList(props.id, props.objCard.id);  props.getDeleteId(props.id)}}>Удалить</button>
+            <button 
+              className={`${s.btnDelete} btn btn-danger`} 
+              onClick={()=>{ deleteTask(props.objCard.id, props.id);}}>Удалить</button>
           </div>
         </Card.Body>
       </Accordion.Collapse>

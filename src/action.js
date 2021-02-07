@@ -1,3 +1,4 @@
+export const setData = (Data) => ({type: 'SET_DATA', data: Data});  
 export const getData = () => ({type: 'DATA'});  
 export const setDisplay = () => ({type: 'DISPLAY_SELECTION'});  
 export const deleteItem = (itemId) => ({type: 'DELETE_ITEM', id: itemId});

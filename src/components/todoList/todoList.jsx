@@ -5,20 +5,17 @@ import * as actions from "../../action";
 import { connect } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
 import AccordionItem from '../accordion-item';
-
+import ApiService from "../../service-api";
 
 
 
 const TodoList = (props) => {
 
-  const [text, setText] = useState('');
+  // const reset = (value) => {
+  //   value = '';
+  // }
 
-   
-  const createObj = () =>{
-    const date = Date.now();
-    props.addItemToList(props.obj.id, {id: date, title: text, note: '', date: '', priority: 'Нет'});
-    props.obj.list.push({id: date, title: text, note: '', date: '', priority: 'Нет'})
-  }
+  const [text, setText] = useState('');
 
   return (
     <div className={`${s.wrapper}`}>
@@ -27,15 +24,23 @@ const TodoList = (props) => {
         <div className={s.input}>
           <button 
             className="btn btn-success" 
-            onClick={()=>{if(text){createObj()}}}>
+            onClick={async ()=>{
+              if(!text){return}
+              const api = new ApiService();
+              const res = await api.addTask(props.obj.id, {title: text, note: '', date: '', priority: 'Нет'});
+              if(await res){
+                props.addItemToList(props.obj.id, {id: res.id, title: text, note: '', date: '', priority: 'Нет'}) 
+                setText('');
+              }
+            }}>
             <Plus />
           </button>
-          <input type="text" className='w-100' onChange={(e)=>{setText(e.target.value)}}/>
+          <input type="text" className='w-100' value={text} onChange={(e)=>{setText(e.target.value)}}/>
         </div>
 
         <Accordion className={s.Accordion}>
           {
-            props.obj.list.map((item)=>{
+            props.obj.lists.map((item)=>{
                 return <AccordionItem 
                 key={item.id} 
                 id={item.id} 

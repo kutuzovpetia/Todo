@@ -8,12 +8,14 @@ import ListGroup from 'react-bootstrap/ListGroup'
 
 const Card = (props) => {
   
+
   return (
     <CardBoot 
     bg={'dark'} 
     text={'white'}  
     className={s.card} 
-    onClick={()=>{props.showList(); props.setObj(props.data.find(item => item.id === props.id))}} // Возврат списка !!!
+    // onClick={()=>{props.showList(); props.setObj(props.data.find(item => item.id === props.id))}} // Возврат списка !!!
+    onClick={()=>{props.showList(); props.setObjId(props.id)}} // Возврат списка !!!
     >
       <div className='d-flex justify-content-between align-items-center mr-3'>
       <CardBoot.Header>{props.title}</CardBoot.Header>

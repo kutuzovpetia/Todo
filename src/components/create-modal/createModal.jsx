@@ -2,20 +2,18 @@ import React, { useState } from "react";
 import s from "./style.module.scss";
 import { connect } from "react-redux";
 import * as actions from "../../action";
-
-const create = (t) => {
-  return {
-    id: Date.now(),
-    title: t,
-    dateOfCreation: new Date().toLocaleDateString(),
-    list: [],
-  };
-};
+import ApiService from '../../service-api';
 
 const CreateModule = (props) => {
 
-  const [title, setTitle] = useState();
+  const [title, setTitle] = useState('');
 
+  const create = async (t) => {
+    const api = new ApiService();
+    const newList = await api.createNewList({title: t});
+    return newList.todo;
+  }
+  
   return (
     <div className={s.modalWrapper}>
       <div className={s.modal}>
@@ -23,6 +21,7 @@ const CreateModule = (props) => {
         <input
           type="text"
           placeholder="Имя списка"
+          value={title}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
@@ -38,9 +37,11 @@ const CreateModule = (props) => {
           </button>
           <button
             className={`btn btn-success`}
-            onClick={() => {
-              props.createList(create(title));
-              props.sCreateList();
+            onClick={ async () => {
+              if(!title){return}
+              const obj = await create(title);
+              props.createList({...obj, lists: []})
+              setTitle('');
             }}
           >
             создать список
