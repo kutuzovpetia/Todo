@@ -29,13 +29,12 @@ function App(props) {
   //   .then(data => console.log(data))
   // },[]);
 
-
   useEffect(() => {
     const api = new ApiService();
     api.getAllList().then((res) => {
       props.setData(res.reverse());
     });
-  }, []);
+  });
 
   return (
     <div className={s.App}>

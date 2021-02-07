@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import s from "./style.module.scss";
 import { connect } from "react-redux";
 import * as actions from "../../action.js";

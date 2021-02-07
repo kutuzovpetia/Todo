@@ -27,7 +27,6 @@ const reducer = (state = initialState, action) =>{
         case 'ON_LIST':
           return {...state, onList: !state.onList}
         case 'ADD_ITEM_TO_LIST':
-          // console.log(action.obj)
           return {...state, data: state.data.map(item =>{
             if(item.id === action.id){
               return { ...item, lists : [...item.lists, action.obj] }
@@ -56,7 +55,6 @@ const reducer = (state = initialState, action) =>{
           })}
 
           case 'ADD_PRIORITY': 
-          console.log(`${action.id} ${action.idCard} ${action.value}`) 
           return {...state, data : state.data.map((item)=>{
             if(item.id === action.idCard){
               return {...item, list : item.list.map((it)=>{
@@ -68,7 +66,6 @@ const reducer = (state = initialState, action) =>{
           })}
 
           case 'ADD_DATE': 
-          console.log(`${action.id} ${action.idCard} ${action.value}`) 
           return {...state, data : state.data.map((item)=>{
             if(item.id === action.idCard){
               return {...item, list : item.list.map((it)=>{
@@ -78,6 +75,18 @@ const reducer = (state = initialState, action) =>{
             }
             return item;
           })}
+
+          case 'DONE_CHECKED':
+            // console.log(action.idCard + ' ' + action.id + ' ' + action.value)
+            return {...state, data : state.data.map((item)=>{
+              if(item.id === action.id){
+                return {...item, lists : item.lists.map((it)=>{
+                  if(it.id === action.idCard){return {...it, done : action.value}}
+                  return it;
+                })}
+              }
+              return item;
+            })}
         default:
           return state;
     }

@@ -50,6 +50,7 @@ const TodoList = (props) => {
                 priority={item.priority}
                 note={item.note}
                 date={item.date}
+                done={item.done}
                 />
             })
           }

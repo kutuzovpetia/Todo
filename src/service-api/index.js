@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import * as actions from '../action';
-import { connect } from "react-redux";
+// import React, { Component } from 'react';
+// import * as actions from '../action';
+// import { connect } from "react-redux";
 
 export default class ApiService {
 
   _apiBase = "http://localhost:3000/api/todo";  
 
-  // Получение всех GET
+  // Получение всех списков GET
   async getResource(url) {
     const res = await fetch(`${this._apiBase}${url}`);
 
     if (!res.ok) {
-      throw new Error(`Could not fetch ${url}` + `, received ${res.status}`);
+      throw new Error(`Could not fetch ${url}, received ${res.status}`);
     }
     return await res.json();
   }
@@ -25,10 +25,10 @@ export default class ApiService {
         body: JSON.stringify(body),
       })
       if (!res.ok) {
-        throw new Error(`Could not fetch ${url}` + `, received ${res.status}`);
+        throw new Error(`Could not fetch ${url}, received ${res.status}`);
       }
       const content = await res.json();
-      console.log(content.todo);
+      // console.log(content.todo);
       return content;
   }
 
@@ -48,7 +48,18 @@ export default class ApiService {
        headers: { "Content-Type": "application/json" },
      })
      return await res;
-   }
+  }
+
+  // Изменение задачи PUT
+  async doneCheck(url, id1, id2, body) {
+    const res = await fetch(`${this._apiBase}${url}${id1}/${id2}`, {
+       method: "PUT",
+       mode: "cors",
+       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin" : "*"},
+       body: JSON.stringify(body),
+     })
+    return await res;
+  }
 
   /*************************************************************************************/
 
@@ -64,7 +75,7 @@ export default class ApiService {
     return await res;
   }
 
-  // Удаление
+  // Удаление списка
   async deleteById(id) {
     const res = await this.delete(`/delete/`, id);
     return await res;
@@ -79,8 +90,12 @@ export default class ApiService {
   // Добавление задачи в список
   async addTask(id, body){
     const res = await this.create(`/add/${id}`, body)
-    console.log(await res);
+    // console.log(await res);
     return await res;
+  }
+
+  async done(id1, id2, body){
+    const res = await this.doneCheck(`/done/`, id1, id2, body)
   }
 }
 

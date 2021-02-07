@@ -7,8 +7,13 @@ import Dropdown from "react-bootstrap/Dropdown";
 import * as actions from '../../action';
 import {connect} from 'react-redux';
 import ApiService from '../../service-api';
+import {CheckSquareFill} from 'react-bootstrap-icons';
 
 const AccordionItem = (props) => {
+
+  const [date, setDate] = useState(props.date);
+  const [priority, setPriority] = useState(props.priority || 'Нет');
+  const [done, setDone] = useState(false);
 
   const deleteTask  = (idCArd,idItem) => {
     const api = new ApiService();
@@ -16,9 +21,6 @@ const AccordionItem = (props) => {
     props.deleteItemFromList(idItem, idCArd); // Удаляем из store
   }
 
-  const [date, setDate] = useState(props.date);
-  const [priority, setPriority] = useState(props.priority || 'Нет');
-  
   let color = null;
     switch (priority) {
         case 'Низкий': color = s.priorityBlue;
@@ -32,9 +34,10 @@ const AccordionItem = (props) => {
     }
 
   return (
-    <Card key={props.id} className={'mb-2'}>
+    <div className={s.wrapper}>
+      <Card key={props.id} className={'mb-2 w-100'}>
       <Accordion.Toggle as={Card.Header} eventKey={props.id} className={color}>
-        <div className="d-flex justify-content-between">
+        <div className={`${props.done ? s.titleChecked : s.title} d-flex justify-content-between`}>
           {props.title}
           <div>
             <span className='mr-3'>{date}</span>
@@ -69,6 +72,16 @@ const AccordionItem = (props) => {
         </Card.Body>
       </Accordion.Collapse>
     </Card>
+    <button 
+      className={s.doneBtn} onClick={()=>{
+        const api = new ApiService();
+        api.done(props.objCard.id, props.id, {done: !props.done})
+        props.doneCheck(props.objCard.id, props.id, !props.done)
+      }}>
+
+      <CheckSquareFill className={props.done ? s.checked : s.check}
+      /></button>
+    </div>
   );
 };
 

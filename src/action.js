@@ -10,3 +10,4 @@ export const deleteItemFromList = (id, idCard) => ({type: 'DELETE_ITEM_FROM_LIST
 export const addNote = (id, idCard, value) => ({type: 'ADD_NOTE', id: id, idCard : idCard, value: value});
 export const addPriority = (id, idCard, value) => ({type: 'ADD_PRIORITY', id: id, idCard : idCard, value: value});
 export const addDate = (id, idCard, value) => ({type: 'ADD_DATE', id: id, idCard : idCard, value: value});
+export const doneCheck = (id, idCard, value) => ({type: 'DONE_CHECKED', id: id, idCard : idCard, value: value});
