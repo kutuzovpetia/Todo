@@ -11,18 +11,20 @@ import {CheckSquareFill} from 'react-bootstrap-icons';
 
 const AccordionItem = (props) => {
 
+  const api = new ApiService();
   const [date, setDate] = useState(props.date);
-  const [priority, setPriority] = useState(props.priority || 'Нет');
-  const [done, setDone] = useState(false);
+  // const [priority, setPriority] = useState(props.priority || 'Нет');
+  // const [done, setDone] = useState(false);
 
   const deleteTask  = (idCArd,idItem) => {
-    const api = new ApiService();
     api.deleteTask(idCArd, idItem);// Удаляем с базы
     props.deleteItemFromList(idItem, idCArd); // Удаляем из store
   }
 
+ 
+
   let color = null;
-    switch (priority) {
+    switch (props.priority) {
         case 'Низкий': color = s.priorityBlue;
             break;
         case 'Средний': color = s.priorityOrange;
@@ -40,7 +42,7 @@ const AccordionItem = (props) => {
         <div className={`${props.done ? s.titleChecked : s.title} d-flex justify-content-between`}>
           {props.title}
           <div>
-            <span className='mr-3'>{date}</span>
+            <span className='mr-3'>{props.date}</span>
           </div>
         </div>
       </Accordion.Toggle>
@@ -50,20 +52,23 @@ const AccordionItem = (props) => {
             <h5>Заметки</h5>
             <textarea cols="25" rows="7" 
             defaultValue={props.note} 
-            onChange={(e)=>{props.addNote(props.id, props.objCard.id, e.target.value);}}
+            onChange={(e)=>{ 
+              api.task(props.objCard.id, props.id, {note: e.target.value});
+              props.addNote(props.id, props.objCard.id, e.target.value);
+            }}
             />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
           </div>
           <div>
             <h5>Дата выполнения</h5>
-            <button onClick={()=>{setDate('Сегодня'); props.addDate(props.id, props.objCard.id, 'Сегодня')}} className='btn btn-dark mr-1'>Сегодня</button>
-            <button onClick={()=>{setDate('Завтра'); props.addDate(props.id, props.objCard.id, 'Завтра')}}className='btn btn-dark mr-1'>Завтра</button>
-            <input type="date" name="" id="" onChange={(e) => { setDate(e.target.value); props.addDate(props.id, props.objCard.id, e.target.value)}} className='btn btn-info' />
+            <button onClick={()=>{api.date(props.objCard.id, props.id,{date: 'Сегодня'}); props.addDate(props.id, props.objCard.id, 'Сегодня')}} className='btn btn-dark mr-1'>Сегодня</button>
+            <button onClick={()=>{api.date(props.objCard.id, props.id,{date: 'Завтра'}); props.addDate(props.id, props.objCard.id, 'Завтра')}} className='btn btn-dark mr-1'>Завтра</button>
+            <input type="date" name="" id="" onChange={(e) => { api.date(props.objCard.id, props.id,{date: e.target.value}); props.addDate(props.id, props.objCard.id, e.target.value)}} className='btn btn-info' />
             <h5 className='mt-2'>Приоритет</h5>
-            <DropdownButton id="dropdown-item-button" title={priority} className={s.dropDown}>
-              <Dropdown.Item as="button" onClick={()=>{setPriority('Нет'); props.addPriority(props.id, props.objCard.id, 'Нет')}}>Нет</Dropdown.Item>
-              <Dropdown.Item as="button" onClick={()=>{setPriority('Низкий'); props.addPriority(props.id, props.objCard.id, 'Низкий')}}>Низкий</Dropdown.Item>
-              <Dropdown.Item as="button" onClick={()=>{setPriority('Средний'); props.addPriority(props.id, props.objCard.id, 'Средний')}}>Средний</Dropdown.Item>
-              <Dropdown.Item as="button" onClick={()=>{setPriority('Высокий'); props.addPriority(props.id, props.objCard.id, 'Высокий')}}>Высокий</Dropdown.Item>
+            <DropdownButton id="dropdown-item-button" title={props.priority} className={s.dropDown}>
+              <Dropdown.Item as="button" onClick={()=>{api.priority(props.objCard.id , props.id ,{priority: 'Нет'}); props.addPriority(props.id, props.objCard.id, 'Нет')}}>Нет</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={()=>{api.priority(props.objCard.id , props.id ,{priority: 'Низкий'}); props.addPriority(props.id, props.objCard.id, 'Низкий')}}>Низкий</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={()=>{api.priority(props.objCard.id , props.id ,{priority: 'Средний'}); props.addPriority(props.id, props.objCard.id, 'Средний')}}>Средний</Dropdown.Item>
+              <Dropdown.Item as="button" onClick={()=>{api.priority(props.objCard.id , props.id ,{priority: 'Высокий'}); props.addPriority(props.id, props.objCard.id, 'Высокий')}}>Высокий</Dropdown.Item>
             </DropdownButton>
             <button 
               className={`${s.btnDelete} btn btn-danger`} 

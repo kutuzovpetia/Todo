@@ -46,7 +46,7 @@ const reducer = (state = initialState, action) =>{
         case 'ADD_NOTE':  
           return {...state, data : state.data.map((item)=>{
             if(item.id === action.idCard){
-              return {...item, list : item.list.map((it)=>{
+              return {...item, lists : item.lists.map((it)=>{
                 if(it.id === action.id){ return {...it, note: action.value}}
                 return it;
               })}
@@ -57,7 +57,7 @@ const reducer = (state = initialState, action) =>{
           case 'ADD_PRIORITY': 
           return {...state, data : state.data.map((item)=>{
             if(item.id === action.idCard){
-              return {...item, list : item.list.map((it)=>{
+              return {...item, lists : item.lists.map((it)=>{
                 if(it.id === action.id){ return {...it, priority: action.value}}
                 return it;
               })}
@@ -68,7 +68,7 @@ const reducer = (state = initialState, action) =>{
           case 'ADD_DATE': 
           return {...state, data : state.data.map((item)=>{
             if(item.id === action.idCard){
-              return {...item, list : item.list.map((it)=>{
+              return {...item, lists : item.lists.map((it)=>{
                 if(it.id === action.id){ return {...it, date: action.value}}
                 return it;
               })}
@@ -77,7 +77,7 @@ const reducer = (state = initialState, action) =>{
           })}
 
           case 'DONE_CHECKED':
-            // console.log(action.idCard + ' ' + action.id + ' ' + action.value)
+            
             return {...state, data : state.data.map((item)=>{
               if(item.id === action.id){
                 return {...item, lists : item.lists.map((it)=>{

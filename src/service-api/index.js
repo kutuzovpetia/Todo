@@ -51,7 +51,7 @@ export default class ApiService {
   }
 
   // Изменение задачи PUT
-  async doneCheck(url, id1, id2, body) {
+  async put(url, id1, id2, body) {
     const res = await fetch(`${this._apiBase}${url}${id1}/${id2}`, {
        method: "PUT",
        mode: "cors",
@@ -94,8 +94,24 @@ export default class ApiService {
     return await res;
   }
 
+  // Ставим/удаляем чекбокс
   async done(id1, id2, body){
-    const res = await this.doneCheck(`/done/`, id1, id2, body)
+    const res = await this.put(`/done/`, id1, id2, body)
+  }
+
+  // Изменяем приоритет задачи
+  async priority(id1, id2, body){
+    const res = await this.put(`/priority/`, id1, id2, body)
+  }
+
+  // Изменяем дату
+  async date(id1, id2, body){
+    const res = await this.put(`/date/`, id1, id2, body)
+  }
+
+  // Изменяем заметку
+  async task(id1, id2, body){
+    const res = await this.put(`/task/`, id1, id2, body)
   }
 }
 

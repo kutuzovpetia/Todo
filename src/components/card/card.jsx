@@ -24,12 +24,30 @@ const Card = (props) => {
       
       <CardBoot.Body className={s.listGroup}>
         
-        <ListGroup >
+        <ListGroup>
         {
+          
           props.list.slice(0, 5).map((item)=>{
-            return <ListGroup.Item  key={item.id} variant="info">
+            let color = null;
+            switch (item.priority) {
+              case 'Нет':
+                color = null;
+                break;
+              case 'Низкий':
+                  color = s.itemBlue;
+                break;
+              case 'Средний':
+                  color = s.itemOrang;
+                break;
+              case 'Высокий':
+                  color = s.itemRed;
+                break;
+              default:
+                break;
+            }
+            return <ListGroup.Item  key={item.id} variant="info" className={color}>
               <div className='d-flex justify-content-between m-0'>
-                <p>{item.title}</p>
+                <p className={item.done ? s.titleChecked : s.title}>{item.title}</p>
                 <p>{item.date}</p>
               </div>
             </ListGroup.Item>
