@@ -8,20 +8,16 @@ import AccordionItem from '../accordion-item';
 import ApiService from "../../service-api";
 
 
-
 const TodoList = (props) => {
-
-  // const reset = (value) => {
-  //   value = '';
-  // }
 
   const [text, setText] = useState('');
 
   return (
     <div className={`${s.wrapper}`}>
-      <button className={'btn btn-warning'} onClick={()=>{props.showList()}}>Закрыть</button>
+
       <div className={s.content}>
-        <div className={s.input}>
+
+      <div className={s.input + ' d-flex'}>
           <button 
             className="btn btn-success" 
             onClick={async ()=>{
@@ -37,6 +33,10 @@ const TodoList = (props) => {
           </button>
           <input type="text" className='w-100' value={text} onChange={(e)=>{setText(e.target.value)}}/>
         </div>
+
+
+
+
 
         <Accordion className={s.Accordion}>
           {

@@ -7,6 +7,7 @@ const initialState = {
   display: false,
   showCreateList: false,
   onList: false,
+  onSearch: false,
 }
 
 const reducer = (state = initialState, action) =>{
@@ -87,6 +88,8 @@ const reducer = (state = initialState, action) =>{
               }
               return item;
             })}
+          case 'ON_SEARCH':
+            return {...state, onSearch : !state.onSearch}
         default:
           return state;
     }

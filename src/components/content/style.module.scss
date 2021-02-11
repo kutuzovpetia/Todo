@@ -2,17 +2,32 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 20px;
+    padding: 80px 20px 20px 20px;
     width: 100%;
     height: auto;
+    z-index: 0;
+    @media (max-width: 725px) {
+        padding-top: 100px;
+    }
+
+    @media (max-width: 545px) {
+        padding-top: 150px;
+    }
 }
 
 .contentWrapperList{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 80px 20px 20px 20px;
     width: 100%;
+    @media (max-width: 725px) {
+        padding-top: 125px;
+    }
+
+    @media (max-width: 545px) {
+        padding-top: 165px;
+    }
 }
 
 

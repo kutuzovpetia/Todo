@@ -6,6 +6,8 @@ import Card from "../card";
 import ItemList from "../list-item";
 import CreateModule from "../create-modal";
 import TodoList from "../todoList";
+import { Route } from "react-router-dom";
+import Plans from "../plans";
 
 const Content = (props) => {
 
@@ -28,14 +30,20 @@ const Content = (props) => {
   });
 
   return (
-    <div
-      className={props.display ? s.contentWrapperList : s.contentWrapperBlock}
-    >
-      {elements}
-      {props.showCreateList ? <CreateModule/> : null}
-      {props.onList ? (
+    <div className={props.display ? s.contentWrapperList : s.contentWrapperBlock}>
+     
+     <Route path={'/lists'}>
+        {props.onList ? (
         <TodoList obj={props.data.find((item) => item.id === objId)} getDeleteId={deleteItem}/>
-      ) : null}
+      ) : elements}
+     </Route>
+
+     <Route path={'/plans'}>
+          <Plans/>
+     </Route>
+
+    {props.showCreateList ? <CreateModule/> : null}
+
     </div>
   );
 };

@@ -6,28 +6,9 @@ import Content from "./components/content";
 import { connect } from "react-redux";
 import ApiService from "./service-api";
 import * as actions from './action';
+import { Redirect } from 'react-router-dom'
 
 function App(props) {
-
-  // useEffect(() => {
-
-  //   fetch('http://localhost:3000/api/todo/add',{
-  //     method: 'POST',
-  //     headers:{'Content-Type': 'application/json'},
-  //     body: JSON.stringify({title: 'Купить хлеба', list:'fgsdf'})
-  //   })
-  //   .then(res => res.json())
-  //   .then(data => console.log(data))
-  // },[]);
-
-  // useEffect(() => {
-  //   fetch('http://localhost:3000/api/todo',{
-  //     method: 'GET',
-  //     headers:{'Content-Type': 'application/json'},
-  //   })
-  //   .then(res => res.json())
-  //   .then(data => console.log(data))
-  // },[]);
 
   useEffect(() => {
     const api = new ApiService();
@@ -38,6 +19,7 @@ function App(props) {
 
   return (
     <div className={s.App}>
+      <Redirect to="lists"/>
       <HeaderNavMenu />
       <Content></Content>
     </div>

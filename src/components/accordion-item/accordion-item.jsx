@@ -12,10 +12,8 @@ import {CheckSquareFill} from 'react-bootstrap-icons';
 const AccordionItem = (props) => {
 
   const api = new ApiService();
-  const [date, setDate] = useState(props.date);
-  // const [priority, setPriority] = useState(props.priority || 'Нет');
-  // const [done, setDone] = useState(false);
-
+  // const [date, setDate] = useState(props.date);
+ 
   const deleteTask  = (idCArd,idItem) => {
     api.deleteTask(idCArd, idItem);// Удаляем с базы
     props.deleteItemFromList(idItem, idCArd); // Удаляем из store
@@ -48,7 +46,7 @@ const AccordionItem = (props) => {
       </Accordion.Toggle>
       <Accordion.Collapse eventKey={props.id}>
         <Card.Body className="d-flex justify-content-between flex-wrap">
-          <div>
+          <div className={'w-100'}>
             <h5>Заметки</h5>
             <textarea cols="25" rows="7" 
             defaultValue={props.note} 
@@ -60,9 +58,9 @@ const AccordionItem = (props) => {
           </div>
           <div>
             <h5>Дата выполнения</h5>
-            <button onClick={()=>{api.date(props.objCard.id, props.id,{date: 'Сегодня'}); props.addDate(props.id, props.objCard.id, 'Сегодня')}} className='btn btn-dark mr-1'>Сегодня</button>
-            <button onClick={()=>{api.date(props.objCard.id, props.id,{date: 'Завтра'}); props.addDate(props.id, props.objCard.id, 'Завтра')}} className='btn btn-dark mr-1'>Завтра</button>
-            <input type="date" name="" id="" onChange={(e) => { api.date(props.objCard.id, props.id,{date: e.target.value}); props.addDate(props.id, props.objCard.id, e.target.value)}} className='btn btn-info' />
+            <button onClick={()=>{api.date(props.objCard.id, props.id,{date: 'Сегодня'}); props.addDate(props.id, props.objCard.id, 'Сегодня')}} className={`btn btn-dark mr-1 ${s.inputDate}`}>Сегодня</button>
+            <button onClick={()=>{api.date(props.objCard.id, props.id,{date: 'Завтра'}); props.addDate(props.id, props.objCard.id, 'Завтра')}} className={`btn btn-dark mr-1 ${s.inputDate}`}>Завтра</button>
+            <input type="date" name="" id="" onChange={(e) => { api.date(props.objCard.id, props.id,{date: e.target.value}); props.addDate(props.id, props.objCard.id, e.target.value)}} className={`${s.inputDate} btn btn-info`} />
             <h5 className='mt-2'>Приоритет</h5>
             <DropdownButton id="dropdown-item-button" title={props.priority} className={s.dropDown}>
               <Dropdown.Item as="button" onClick={()=>{api.priority(props.objCard.id , props.id ,{priority: 'Нет'}); props.addPriority(props.id, props.objCard.id, 'Нет')}}>Нет</Dropdown.Item>
@@ -70,9 +68,12 @@ const AccordionItem = (props) => {
               <Dropdown.Item as="button" onClick={()=>{api.priority(props.objCard.id , props.id ,{priority: 'Средний'}); props.addPriority(props.id, props.objCard.id, 'Средний')}}>Средний</Dropdown.Item>
               <Dropdown.Item as="button" onClick={()=>{api.priority(props.objCard.id , props.id ,{priority: 'Высокий'}); props.addPriority(props.id, props.objCard.id, 'Высокий')}}>Высокий</Dropdown.Item>
             </DropdownButton>
+
             <button 
               className={`${s.btnDelete} btn btn-danger`} 
-              onClick={()=>{ deleteTask(props.objCard.id, props.id);}}>Удалить</button>
+              onClick={()=>{ deleteTask(props.objCard.id, props.id);}}>Удалить
+            </button>
+            
           </div>
         </Card.Body>
       </Accordion.Collapse>
